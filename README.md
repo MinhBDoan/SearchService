@@ -8,21 +8,21 @@ Programs can request data by sending REST API calls over HTTP.
 ## Example Request using fetch(Search By Name)
 Search By Name
 Endpoint: GET /search?name=<searchTerm>
-
+```js
 await fetch("http://localhost:3001/search?name=naruto");
-
+```
 ## Example Request using fetch(Search By Category)
 Search By Category
 Endpoint: GET /search?category=<categoryName>
-
+```js
 await fetch("http://localhost:3001/search?category=anime");
-
+```
 ## Example Request using fetch(Search and Sort)
 Search and Sort 
 Endpoint: GET /search?category=<categoryName>&sort=<asc|desc>
-
+```js
 await fetch("http://localhost:3001/search?category=anime&sort=asc");
-
+```
 ## How to Receive Data
 The microservice returns JSON data.
 
