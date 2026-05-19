@@ -27,29 +27,33 @@ await fetch("http://localhost:3001/search?category=anime&sort=asc");
 The microservice returns JSON data.
 
 ## Example Response Handling
+```js
 const response = await fetch("http://localhost:3001/search?category=anime&sort=asc");
 const data = await response.json();
 
 console.log(data);
-
+```
 ## Example JSON Response:
 
 Search By Name
+```json
 {
   "id": 1,
   "name": "Naruto",
   "category": "Anime"
 }
-
+```
 Search By Category:
+```json
 { "id": 1, "name": "Naruto", "category": "Anime" },
 { "id": 2, "name": "One Piece", "category": "Anime" },
 { "id": 3, "name": "Attack On Titan", "category": "Anime" }
-
+```
 Search and Sort:
+```json
 { "id": 3, "name": "Attack On Titan", "category": "Anime" },
 { "id": 1, "name": "Naruto", "category": "Anime" },
 { "id": 2, "name": "One Piece", "category": "Anime" }
-
+```
 ## UML Sequence Diagram:
 ![UML Diagram](./searchUMLdiagram.png)
