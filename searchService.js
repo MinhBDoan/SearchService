@@ -6,7 +6,6 @@ const PORT = 3001;
 
 app.use(bodyParser.json());
 
-// Sample data for any app sharing microservice
 const items = [
     { id: 1, name: "Naruto", category: "Anime" },
     { id: 2, name: "One Piece", category: "Anime" },
@@ -22,34 +21,50 @@ const items = [
     { id: 12, name: "Green", category: "Paint" }
 ];
 
-// Search
-app.get("/search", (req, res) => {
-    let results = [...items];
+function filterByName(results, name) {
+    return results.filter(item =>
+        item.name.toLowerCase().includes(name.toLowerCase())
+    );
+}
 
+function filterByCategory(results, category) {
+    return results.filter(item =>
+        item.category.toLowerCase() === category.toLowerCase()
+    );
+}
+
+function sortResults(results, sort) {
+    if (sort === "asc") {
+        return results.sort((a, b) =>
+            a.name.localeCompare(b.name)
+        );
+    }
+
+    if (sort === "desc") {
+        return results.sort((a, b) =>
+            b.name.localeCompare(a.name)
+        );
+    }
+
+    return results;
+}
+
+app.get("/search", (req, res) => {
     const { name, category, sort } = req.query;
 
     console.log("Search request:", req.query);
 
-    // Search by name
+    let results = [...items];
+
     if (name) {
-        results = results.filter(item =>
-            item.name.toLowerCase().includes(name.toLowerCase())
-        );
+        results = filterByName(results, name);
     }
 
-    // Search by category
     if (category) {
-        results = results.filter(item =>
-            item.category.toLowerCase() === category.toLowerCase()
-        );
+        results = filterByCategory(results, category);
     }
 
-    // Sort results
-    if (sort === "asc") {
-        results.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (sort === "desc") {
-        results.sort((a, b) => b.name.localeCompare(a.name));
-    }
+    results = sortResults(results, sort);
 
     res.json(results);
 });
