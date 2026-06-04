@@ -69,6 +69,12 @@ app.get("/search", (req, res) => {
     res.json(results);
 });
 
+app.post("/item", (req, res) => {
+    const { id, name, category } = req.body;
+    items.push({ id, name, category });
+    res.json({ message: "Item added successfully" });
+});
+
 app.listen(PORT, () => {
     console.log(`Search service running on http://localhost:${PORT}`);
 });
